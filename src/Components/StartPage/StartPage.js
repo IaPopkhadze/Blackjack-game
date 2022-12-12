@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./startPage.css";
 import BackgroundImage from "../Assets/Background.jpg";
 import Exclamation from "../Assets/exclamation.jpg";
 import Table from "../Table/Table";
 import { type } from "@testing-library/user-event/dist/type";
-
+import PlaceYourBet from "../PlaceYourBet/PlaceYourBet";
+import { propsContext } from "../Pages/Pages";
 function StartPage() {
-  const [nickName, setNickname] = useState("");
+  const {nickName,setNickname,cash, setCash,seatAmount, setSeatAmount}=useContext(propsContext)
+  // const [nickName, setNickname] = useState("");
   const [nicknameError, setNickNameError] = useState(false);
   const [nicknameErrorMessage, setNicknameErrorMEssage] = useState("");
-  const [cash, setCash] = useState(0);
+  // const [cash, setCash] = useState(0);
   const [cashError, setCashError] = useState(false);
   const [cashErrorMessage, setCashErrorMessage] = useState("");
-  const [seatAmount, setSeatAmount] = useState(1);
+  // const [seatAmount, setSeatAmount] = useState(1);
 
   const [startGame, setStartGame] = useState(true);
-  const [table, setTable] = useState(false);
+  const [placeBet, setPlaceBet] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,6 +52,14 @@ function StartPage() {
     } else {
       setCashError(false);
     }
+    if (
+      cashError == false &&
+      nicknameError == false &&
+      nickName.length != 0 &&
+      cash != 0
+    ) {
+      setPlaceBet(true);
+    }
   };
   useEffect(() => {
     if (
@@ -58,13 +68,14 @@ function StartPage() {
       nickName.length != 0 &&
       cash != 0
     ) {
-      setTable(true);
+      setPlaceBet(true);
     }
   }, [cashError, nicknameError]);
+
   return (
     <>
-      {table ? (
-        <Table />
+      {placeBet ? (
+        <PlaceYourBet />
       ) : (
         <div className="startPage">
           <div className="imageContainer">
