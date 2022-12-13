@@ -14,35 +14,44 @@ function Table() {
   // };
   const { nickName, cash, setCash, bet, seatAmount } = useContext(propsContext);
 
-  const [card, setCard] = useState(null);
-  const randomIndex=Math.floor(Math.random()*52);
-  console.log(randomIndex)
+  const [card, setCard] = useState([]);
+  const randomIndex = Math.floor(Math.random() * 52);
+ 
   const API = "https://deckofcardsapi.com/api/deck/new/draw/?count=52";
-  const getData = async () => {
-    const result = await axios.get(API);
-    setCard(result.data.cards[0].images.png);
-    console.log(card)
-   
-  };
+    const getData = async () => {
+       await axios.get(API)
+       .then(response=>setCard(response.data))
+       .catch(error=>console.error(error))
+      // setCard(result.data.cards);
+     
+    };
+
   useEffect(() => {
     getData();
   }, []);
 
   return (
     <div className="table">
-  
       <div className="image_container">
         <img className="image" src={TableImage} alt="" />
       </div>
       <div className="table_content">
-        <p className="dealer_score">Dealer Shows: 10</p>
-        <button onClick={getData}>click</button>
+        <p className="dealer_score">Dealer Shows: {card.cards[0]?.value}</p>
+     
         <div className="dealer_container">
           <div className="dealer_hidden_card">
-            <img className="hidden_card_image" src={card} alt="image" />
+            <img
+              className="hidden_card_image"
+              src={card.cards[0]?.images.png}
+              alt="image"
+            />
           </div>
           <div className="dealer_open_card">
-            <img className="open_card_image" src={card} alt="image" />
+            <img
+              className="open_card_image"
+              src={card.cards[1]?.images.png}
+              alt="image"
+            />
           </div>
         </div>
       </div>
