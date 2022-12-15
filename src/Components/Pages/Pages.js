@@ -8,9 +8,9 @@ function Pages() {
   const [nickName, setNickname] = useState("");
   const [cash, setCash] = useState(0);
   const [bet, setBet] = useState(null);
-  const [seatAmount, setSeatAmount] = useState(1);
+  
   return (
-    <propsContext.Provider value={{bet, setBet,nickName,setNickname,cash, setCash,seatAmount, setSeatAmount}}>
+    <propsContext.Provider value={{bet, setBet,nickName,setNickname,cash, setCash}}>
       {/* <StartPage /> */}
       <Table/>
     </propsContext.Provider>

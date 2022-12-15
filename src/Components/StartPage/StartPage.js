@@ -133,25 +133,7 @@ function StartPage() {
                     </div>
                   ) : null}
                 </div>
-                <div className="input_container">
-                  <label className="my_label" htmlFor="">
-                    How many Seat You Want To Take:{" "}
-                  </label>
-                  <select
-                    onChange={(e) => setSeatAmount(e.target.value)}
-                    value={seatAmount}
-                    name=""
-                    id=""
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                  </select>
-                </div>
+
                 <button
                   type="submit"
                   onClick={(e) => handleSubmit(e)}
