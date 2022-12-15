@@ -14,7 +14,7 @@ function Table() {
   // const API = "https://deckofcardsapi.com/api/deck/new/draw";
   const getDealerData = async () => {
     const result = await axios.get(API);
-    setCard(result.data.cards);
+    setCard(result?.data?.cards);
     console.log(card);
   };
 
@@ -25,12 +25,16 @@ function Table() {
   const playerData = [
     {
       image: card[0]?.images.png,
-      value: +card[0]?.value,
+      value: card[0]?.value,
     },
     {
       image: card[1]?.images.png,
-      value: +card[2]?.value,
+      value: card[1]?.value,
     },
+    // {
+    //   image: card[2]?.images.png,
+    //   value: +card[2]?.value,
+    // },
   ];
   return (
     <div className="table">
@@ -56,7 +60,37 @@ function Table() {
           </div>
         </div>
         <div className="player_container">
-          <p>score: </p>
+          <p>
+            {" "}
+            {playerData.reduce(
+              (first, second) =>
+                first +
+                (typeof second.value === "1"
+                  ? 1
+                  : second.value === "2"
+                  ? 2
+                  : second.value === "3"
+                  ? 3
+                  : second.value === "4"
+                  ? 4
+                  : second.value === "5"
+                  ? 5
+                  : second.value === "6"
+                  ? 6
+                  : second.value === "7"
+                  ? 7
+                  : second.value === "8"
+                  ? 8
+                  : second.value === "9"
+                  ? 9
+                  : second.value === "10"
+                  ? 10
+                  : second.value === "A"
+                  ? 1
+                  : 10),
+              0
+            )}
+          </p>
           {playerData.map((element, index) => {
             return (
               <div key={index} className="each_image_container">
